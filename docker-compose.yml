@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+
+  todoapi:
+    container_name: todoapi
+    build:
+      context: .
+      dockerfile: TodoApi/Dockerfile
+    ports:
+      - 8080:8080
+      - 8081:8081
+    environment:
+      - ConnectionStrings__TodoListConnectionString=server=tododb;database=TodoList;User Id=sa;password=MyStrong.Password;TrustServerCertificate=True
+    depends_on:
+      - tododb
+    networks:
+      - todonetwork
+
+  tododb:
+    container_name: tododb
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - "1433:1433"
+    environment:
+      - MSSQL_SA_PASSWORD=MyStrong.Password
+      - ACCEPT_EULA=Y
+    volumes:
+      - sql-data:/var/opt/mssql
+    networks:
+      - todonetwork
+
+volumes:
+  sql-data: 
+
+networks:
+  todonetwork:
