@@ -12,5 +12,5 @@ public class ToDoItemDto
 
   public bool Done { get; set; } = false;
 
-  public ToDoListDto ToDoList { get; private set; }
+  // public ToDoListDto ToDoList { get; private set; }
 }

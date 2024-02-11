@@ -8,6 +8,7 @@ using TodoApi.Application.Dtos;
 using TodoApi.Presentation.Abstractions;
 using ToDoApi.Application.UseCases.TodoItems.Commands.Create;
 using ToDoApi.Application.UseCases.TodoItems.Commands.Delete;
+using ToDoApi.Application.UseCases.TodoItems.Commands.MarkAsDone;
 using ToDoApi.Application.UseCases.TodoItems.Queries.GetByTodoList;
 
 namespace TodoApi.Presentation.Controllers;
@@ -34,6 +35,15 @@ public class ToDoItemsController : ApiController
   [HttpPost]
   public async Task<ActionResult<ToDoItemDto>> CreateAsync([FromBody] CreateRequest request, CancellationToken cancellationToken)
   {
+    var response = await sender.Send(request, cancellationToken);
+
+    return Ok(response);
+  }
+
+  [HttpPatch("{todo-item-id}/done/{is-done}")]
+  public async Task<ActionResult<ToDoItemDto>> MarkAsDoneAsync([FromRoute(Name = "todo-item-id")] Guid toDoItemId, [FromRoute(Name = "is-done")] bool isDone, CancellationToken cancellationToken)
+  {
+    var request = new MarkAsDoneRequest(toDoItemId, isDone);
     var response = await sender.Send(request, cancellationToken);
 
     return Ok(response);

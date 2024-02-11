@@ -2,11 +2,21 @@ version: '3.4'
 
 services:
 
+  todoweb:
+    container_name: todoweb
+    build:
+      context: .
+      dockerfile: ToDoWeb/Dockerfile
+    ports:
+      - 8082:80
+    networks:
+      - todonetwork
+
   todoapi:
     container_name: todoapi
     build:
       context: .
-      dockerfile: TodoApi/Dockerfile
+      dockerfile: ToDoApi/Dockerfile
     ports:
       - 8080:8080
       - 8081:8081

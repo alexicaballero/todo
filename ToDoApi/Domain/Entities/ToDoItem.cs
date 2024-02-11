@@ -27,9 +27,9 @@ public class ToDoItem : Entity
     return toDoItem;
   }
 
-  public void MarkComplete()
+  public void MarkComplete(bool done)
   {
-    Done = true;
+    Done = done;
     Events.Add(new ToDoItemCompletedEvent(this));
   }
 }

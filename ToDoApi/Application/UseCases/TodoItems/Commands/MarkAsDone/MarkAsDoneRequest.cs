@@ -4,6 +4,6 @@ using TodoApi.Application.Dtos;
 
 namespace ToDoApi.Application.UseCases.TodoItems.Commands.MarkAsDone;
 
-public record MarkAsDoneRequest(Guid TodoItemId) : IRequest<ToDoItemDto>
+public record MarkAsDoneRequest(Guid TodoItemId, bool isDone) : IRequest<ToDoItemDto>
 {
 }

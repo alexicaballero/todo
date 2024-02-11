@@ -6,6 +6,17 @@ using TodoApi.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+       options.AddPolicy("MyAllowSpecificOrigins",
+                         policy =>
+                         {
+                                policy.AllowAnyOrigin()
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                         });
+});
+
 builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(x => x.FullName));
 
 builder.Services
@@ -20,6 +31,8 @@ app.UseSwaggerUI();
 app.Services.UseMigrations();
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyAllowSpecificOrigins");
 
 app.UseAuthorization();
 

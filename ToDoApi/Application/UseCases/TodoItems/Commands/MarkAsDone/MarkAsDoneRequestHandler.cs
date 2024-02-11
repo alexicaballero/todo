@@ -30,7 +30,7 @@ public class MarkAsDoneRequestHandler : IRequestHandler<MarkAsDoneRequest, ToDoI
       throw new DllNotFoundException(nameof(ToDoItemDto));
     }
 
-    toDoItem.MarkComplete();
+    toDoItem.MarkComplete(request.isDone);
 
     var result = await toDoItemRepository.UpdateAsync(toDoItem);
 

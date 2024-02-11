@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeflex/themes/primeone-dark.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/primeng/resources/themes/arya-blue/theme.css";
+@import "../node_modules/primeng/resources/primeng.css";
+
+body {
+	margin: 0;
+	min-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: var(--surface-ground);
+	color: var(--text-color);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

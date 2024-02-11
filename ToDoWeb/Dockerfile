@@ -10,11 +10,11 @@ COPY ToDoWeb/package*.json ./
 # Install project dependencies including the Angular CLI
 RUN npm install
 
-# Install the Angular CLI locally
-RUN npm install -g @angular/cli
+# # Install the Angular CLI locally
+# RUN npm install -g @angular/cli
 
 # Copy the entire project to the container
-COPY . .
+COPY ToDoWeb/. .
 
 # Build the Angular app for production
 RUN npm run build

@@ -1,0 +1,36 @@
+<div class="todo-list">
+  <p-dataView [value]="toDoList?.items">
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-start">
+        <div class="text-l font-bold text-900">{{ toDoList?.title }}</div>
+      </div>
+    </ng-template>
+    <ng-template let-toDoItem pTemplate="listItem">
+      <div class="col-12 p-1">
+        <div class="grid px-1">
+          <div class="col flex align-items-center">
+            <div class="text-sm text-900 vertical-align-bottom">{{ toDoItem.description }}</div>
+          </div>
+          <div class="col-fixed" style="width: 50px">
+            <p-button
+              *ngIf="toDoItem.done"
+              icon="pi pi-check"
+              [rounded]="true"
+              size="small"
+              severity="success"
+              (onClick)="onDoneClick(toDoItem.id, true)"
+            ></p-button>
+            <p-button
+              *ngIf="!toDoItem.done"
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              size="small"
+              (onClick)="onDoneClick(toDoItem.id, false)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

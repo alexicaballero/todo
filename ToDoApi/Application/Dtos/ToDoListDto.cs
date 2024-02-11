@@ -9,5 +9,5 @@ public class ToDoListDto
 
   public string Title { get; set; } = string.Empty;
 
-  public ICollection<ToDoItemDto> Items { get; set; } = new List<ToDoItemDto>();
+  // public ICollection<ToDoItemDto> Items { get; set; } = new List<ToDoItemDto>();
 }
