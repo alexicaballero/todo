@@ -12,20 +12,38 @@ export class TodoListComponent implements OnInit {
   toDoList: ToDoList | undefined;
 
   /**
-   * contructor
+   * constructor
    */
-  constructor(private readonly todoApiService: TodoApiService) {
-  }
+  constructor(private readonly todoApiService: TodoApiService) {}
 
   ngOnInit(): void {}
 
   onDoneClick(toDoItemId: string, isDone: boolean) {
-    this.todoApiService.markToDoItemAsDone(toDoItemId, isDone)
-    .subscribe({
+    console.log('isDone: ', isDone);
+    this.todoApiService.markToDoItemAsDone(toDoItemId, isDone).subscribe({
       next: (toDoItemResult) => {
-        const toDoItem = this.toDoList?.items.find(item => item.id === toDoItemId);
-        if(toDoItem) {
+        const toDoItem = this.toDoList?.items.find(
+          (item) => item.id === toDoItemId
+        );
+        if (toDoItem) {
           toDoItem.done = toDoItemResult.done;
+        }
+      },
+      error: (err) => {},
+      complete: () => {},
+    });
+  }
+
+  onDeleteClick(toDoItemId: string) {
+    this.todoApiService.deleteToDoItem(toDoItemId).subscribe({
+      next: () => {
+        const toDoItem = this.toDoList?.items.find(
+          (item) => item.id === toDoItemId
+        );
+        if (toDoItem && this.toDoList) {
+          this.toDoList.items = this.toDoList?.items.filter(
+            (item) => item.id !== toDoItemId
+          );
         }
       },
       error: (err) => {},

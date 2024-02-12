@@ -6,7 +6,7 @@ import { forkJoin, map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   toDoLists: ToDoList[] = [];
@@ -14,21 +14,15 @@ export class HomeComponent implements OnInit {
   /**
    *
    */
-  constructor(private readonly toDoApiService: TodoApiService) {
-  }
+  constructor(private readonly toDoApiService: TodoApiService) {}
 
   ngOnInit(): void {
-    this.toDoApiService.getToDoListsWithItems()
-    .subscribe({
-      next: (toDolists: ToDoList[]) => {
-        this.toDoLists = toDolists;
-        console.log(JSON.stringify(this.toDoLists, null, 2));
+    this.toDoApiService.getToDoListsWithItems().subscribe({
+      next: (toDoLists: ToDoList[]) => {
+        this.toDoLists = toDoLists;
       },
-      error: (err) => {
-      },
-      complete: () => {
-      },
+      error: (err) => {},
+      complete: () => {},
     });
   }
-
 }

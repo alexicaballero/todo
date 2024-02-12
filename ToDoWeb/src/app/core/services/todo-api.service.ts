@@ -6,11 +6,11 @@ import { environment } from 'src/environments/environment';
 import { ToDoItem } from '../models/todo-item.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoApiService {
-  apiUrl =  `${environment.API_URL}`;
-    constructor(private httpClient: HttpClient) { }
+  apiUrl = `${environment.API_URL}`;
+  constructor(private httpClient: HttpClient) {}
 
   getAllToDoList(): Observable<ToDoList[]> {
     const url: string = `${this.apiUrl}/todo-lists`;
@@ -25,24 +25,31 @@ export class TodoApiService {
   }
 
   getToDoListsWithItems(): Observable<ToDoList[]> {
-    return this.getAllToDoList()
-    .pipe(
-      switchMap(toDoLists => {
-        const toDoListWithItem = toDoLists.map(toDoList => {
-          return this.getToDoItems(toDoList.id)
-          .pipe(
-            map(toDoItems => ({...toDoList, items: toDoItems}))
-          )});
+    return this.getAllToDoList().pipe(
+      switchMap((toDoLists) => {
+        const toDoListWithItem = toDoLists.map((toDoList) => {
+          return this.getToDoItems(toDoList.id).pipe(
+            map((toDoItems) => ({ ...toDoList, items: toDoItems }))
+          );
+        });
 
         return forkJoin(toDoListWithItem);
       })
-    )
+    );
   }
 
-  markToDoItemAsDone(toDoItemId: string, isDone: boolean) {
+  markToDoItemAsDone(
+    toDoItemId: string,
+    isDone: boolean
+  ): Observable<ToDoItem> {
     const url: string = `${this.apiUrl}/todo-items/${toDoItemId}/done/${isDone}`;
 
     return this.httpClient.patch<ToDoItem>(url, {});
   }
-}
 
+  deleteToDoItem(toDoItemId: string): Observable<void> {
+    const url: string = `${this.apiUrl}/todo-items/${toDoItemId}`;
+
+    return this.httpClient.delete<void>(url);
+  }
+}

@@ -9,24 +9,35 @@
       <div class="col-12 p-1">
         <div class="grid px-1">
           <div class="col flex align-items-center">
-            <div class="text-sm text-900 vertical-align-bottom">{{ toDoItem.description }}</div>
+            <div class="text-sm text-900 vertical-align-bottom">
+              {{ toDoItem.description }}
+            </div>
           </div>
-          <div class="col-fixed" style="width: 50px">
+          <div class="col-fixed" style="width: 100px">
             <p-button
               *ngIf="toDoItem.done"
               icon="pi pi-check"
               [rounded]="true"
-              size="small"
+              [text]="true"
               severity="success"
-              (onClick)="onDoneClick(toDoItem.id, true)"
+              (onClick)="onDoneClick(toDoItem.id, false)"
             ></p-button>
             <p-button
               *ngIf="!toDoItem.done"
-              icon="pi"
+              icon="pi pi-circle"
               [rounded]="true"
-              [outlined]="true"
+              [text]="true"
+              severity="secondary"
               size="small"
-              (onClick)="onDoneClick(toDoItem.id, false)"
+              (onClick)="onDoneClick(toDoItem.id, true)"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [text]="true"
+              severity="secondary"
+              size="small"
+              (onClick)="onDeleteClick(toDoItem.id)"
             ></p-button>
           </div>
         </div>

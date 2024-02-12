@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using TodoApi.Application.Abstractions;
 using TodoApi.Application.Dtos;
 using TodoApi.Domain.Abstractios;
+using TodoApi.Domain.Entities;
+using TodoApi.Domain.Exceptions;
 
 namespace ToDoApi.Application.UseCases.TodoItems.Commands.MarkAsDone;
 
@@ -33,6 +35,13 @@ public class MarkAsDoneRequestHandler : IRequestHandler<MarkAsDoneRequest, ToDoI
     toDoItem.MarkComplete(request.isDone);
 
     var result = await toDoItemRepository.UpdateAsync(toDoItem);
+
+    var recordsAfected = await unitOfWork.SaveChangesAsync(cancellationToken);
+
+    if (recordsAfected < 1)
+    {
+      throw new DeleteException(nameof(ToDoItem));
+    }
 
     return mapper.Map<ToDoItemDto>(result);
   }

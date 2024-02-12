@@ -23,9 +23,9 @@ public class ToDoList : Entity
     return toDoList;
   }
 
-  public ToDoItem AddItem(string title)
+  public ToDoItem AddItem(string description)
   {
-    var toDoItem = ToDoItem.Create(this.Id, title);
+    var toDoItem = ToDoItem.Create(this.Id, description);
     this.items.Add(toDoItem);
 
     return toDoItem;

@@ -22,16 +22,14 @@ public class CreateSeedDataRequestHandler : IRequestHandler<CreateSeedDataReques
   {
     for (var i = 0; i < 5; i++)
     {
-      var toDoList = ToDoList.Create($"List #id");
+      var toDoList = ToDoList.Create($"To Do List {i.ToString("000")}");
       if (toDoList is null)
         continue;
 
-      toDoList.Title = toDoList!.Title.Replace("#id", toDoList?.Id.ToString());
 
       for (var k = 0; k < 5; k++)
       {
-        var toDoItem = toDoList.AddItem($"Task #id");
-        toDoItem.Description = toDoItem.Description.Replace("#id", toDoItem?.Id.ToString());
+        toDoList.AddItem($"Task Item {k.ToString("000")}");
       }
 
       await toDoListRepository.AddAsync(toDoList);

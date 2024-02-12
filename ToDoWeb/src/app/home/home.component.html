@@ -1,5 +1,11 @@
-<div class="grid">
-  <div class="col-12 md:col-6 lg:col-4 xl:col-4" *ngFor="let toDolist of toDoLists">
-    <app-todo-list [toDoList]="toDolist"></app-todo-list>
+<div class="container">
+  <div class="header text-xl font-bold text-900">My To Do Lists</div>
+  <div class="grid">
+    <div
+      class="col-12 md:col-6 lg:col-4 xl:col-4"
+      *ngFor="let toDoList of toDoLists"
+    >
+      <app-todo-list [toDoList]="toDoList"></app-todo-list>
+    </div>
   </div>
 </div>
